@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Step-Up SIP Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="swp-page">
+  <!-- INPUT CARD -->
+  <div class="swp-layout">
+    <div class="card-wrapper">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title style="color:#1976d2; font-weight:600;">
+            Enter Step-Up SIP Details
+          </ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+          <!-- Monthly SIP -->
+          <div class="form-group">
+            <ion-label position="floating">Monthly Investment</ion-label>
+            <ion-input type="text" inputmode="numeric" [value]="formattedInvestmentAmount"
+              (ionInput)="onInvestmentAmountInput($event)"></ion-input>
+            <small class="amount-words" *ngIf="investmentAmountInWords">
+              {{ investmentAmountInWords }}
+            </small>
+          </div>
+
+          <!-- Annual Step-Up -->
+          <div class="form-group">
+            <ion-label position="floating">Annual Step-Up (%)</ion-label>
+            <ion-input type="number" class="txt" [(ngModel)]="stepUp"></ion-input>
+          </div>
+
+          <!-- Expected Return -->
+          <div class="form-group">
+            <ion-label position="floating">Expected Return Rate (p.a %)</ion-label>
+            <ion-input type="number" class="txt" [(ngModel)]="rate"></ion-input>
+          </div>
+
+          <!-- Time Period -->
+          <div class="form-group">
+            <ion-label position="floating">Time Period (Years)</ion-label>
+            <ion-input type="number" class="txt" [(ngModel)]="time"></ion-input>
+          </div>
+
+          <ion-button expand="block" color="secondary" shape="round" (click)="calculateStepUpSIP()">
+            CALCULATE
+          </ion-button>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div class="card-wrapper">
+      <!-- Results -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Results</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <p>Invested Amount: <b>₹ {{ investedAmount | number:'1.0-0' }}</b></p>
+          <p>Est. Returns: <b>₹ {{ estReturns | number:'1.0-0' }}</b></p>
+          <p>Total Value: <b>₹ {{ totalValue | number:'1.0-0' }}</b></p>
+
+          <div class="chart-container">
+            <canvas #stepSipChart></canvas>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div class="card-table-wrapper" *ngIf="monthlyData.length">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Month-wise Step-Up SIP Breakdown</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content class="table-wrapper">
+          <table class="sip-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Invested (₹)</th>
+                <th>Interest (₹)</th>
+                <th>Total Value (₹)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let row of monthlyData">
+                <td>{{ row.monthYear }}</td>
+                <td>{{ row.invested | number:'1.0-0' }}</td>
+                <td>{{ row.interest | number:'1.0-0' }}</td>
+                <td>{{ row.totalValue | number:'1.0-0' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

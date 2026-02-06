@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>SWP Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="swp-page">
+  <!-- INPUT CARD -->
+  <div class="swp-layout">
+    <div class="card-wrapper">
+      <ion-card>
+        <ion-card-content class="form-wrapper">
+          <ion-card-header>
+            <ion-card-title style="color:#1976d2; font-weight:600;">Enter SWP Details</ion-card-title>
+          </ion-card-header>
+
+          <div class="form-group">
+            <ion-label position="floating">Initial Investment</ion-label>
+            <ion-input type="text" inputmode="numeric" [value]="formattedInitialInvestmentAmount"
+              (ionInput)="onInvestmentAmountInput($event)"></ion-input>
+            <small class="amount-words" *ngIf="investmentAmountInWords">
+              {{ investmentAmountInWords }}
+            </small>
+          </div>
+
+          <div class="form-group">
+            <ion-label position="floating">Withdrawal Per Month</ion-label>
+            <ion-input type="text" inputmode="numeric" [value]="formattedMonthlyWithdrawalAmount"
+              (ionInput)="onMonthlyWithdrawalAmountInput($event)"></ion-input>
+            <small class="amount-words" *ngIf="monthlyWithdrawalAmountInWords">
+              {{ monthlyWithdrawalAmountInWords }}
+            </small>
+          </div>
+
+          <div class="form-group">
+            <ion-label position="floating">Expected Return Rate (p.a %)</ion-label>
+            <ion-input class="txt" type="number" [(ngModel)]="annualReturn"></ion-input>
+          </div>
+
+          <div class="form-group">
+            <ion-label position="floating">Time Period (Years)</ion-label>
+            <ion-input class="txt" type="number" [(ngModel)]="years"></ion-input>
+          </div>
+
+          <ion-button expand="block" color="secondary" shape="round" (click)="calculateSWP()">
+            CALCULATE
+          </ion-button>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="card-wrapper">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Results</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content class="form-wrapper">
+          <p>Invested Amount: <b>₹ {{ initialInvestment | number:'1.0-0' }}</b></p>
+          <p>Total Withdrawal: <b>₹ {{ totalWithdrawal | number:'1.0-0' }}</b></p>
+          <p>Final Value: <b>₹ {{ finalValue | number:'1.0-0' }}</b></p>
+
+          <!-- RIGHT -->
+          <div class="chart-container">
+            <canvas #swpChart></canvas>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div class="card-table-wrapper" *ngIf="monthlyTable.length">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Month-wise SWP Breakdown</ion-card-title>
+        </ion-card-header>
+        <div class="table-wrapper">
+          <table class="sip-table">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Withdrawal (₹)</th>
+                <th>Interest (₹)</th>
+                <th>Balance (₹)</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let row of monthlyTable">
+                <td>{{ row.monthYear }}</td>
+                <td>{{ row.withdrawn | number:'1.0-0' }}</td>
+                <td>{{ row.interest | number:'1.0-0' }}</td>
+                <td>{{ row.balance | number:'1.0-0' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

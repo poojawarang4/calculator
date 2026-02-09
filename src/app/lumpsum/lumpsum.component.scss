@@ -1,185 +1,185 @@
 ion-card {
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    padding: 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .form-group {
-    margin: 18px;
+  margin: 18px;
 }
 
 .form-group label {
-    font-size: 13px;
-    font-weight: 600;
-    color: #6b7280;
-    margin-bottom: 6px;
-    display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-bottom: 6px;
+  display: block;
 }
 
 ion-card-title {
-    font-size: 30px;
-    font-weight: 700;
+  font-size: 30px;
+  font-weight: 700;
 }
 
 ion-label {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 ion-card-content p {
-    font-size: 20px;
-    color: #374151;
-    margin: 6px 0;
+  font-size: 20px;
+  color: #374151;
+  margin: 6px 0;
 }
 
 ion-card-content b {
-    font-size: 20px;
-    color: #111827;
+  font-size: 20px;
+  color: #111827;
 }
 
 .form-group ion-input {
-    height: 42px; // ↓ slimmer
-    font-size: 20px;
-    --background: #f1f5f9;
-    --padding-start: 14px;
-    --padding-end: 14px;
-    --padding-top: 14px;
-    --padding-bottom: 14px;
-    border-radius: 14px;
-    box-shadow: inset 0 0 0 1px #e5e7eb;
+  height: 42px; // ↓ slimmer
+  font-size: 20px;
+  --background: #f1f5f9;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px #e5e7eb;
 }
 
 .card-wrapper {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 992px) {
-    .card-wrapper ion-card {
-        width: 100%;
-        min-width: 400px; // 🔑 card size
-        max-width: 400px;
-    }
+  .card-wrapper ion-card {
+    width: 100%;
+    min-width: 400px; // 🔑 card size
+    max-width: 400px;
+  }
 }
 
 .swp-layout {
-    display: flex;
-    flex-direction: column; // mobile default
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  flex-direction: column; // mobile default
+  align-items: center;
+  gap: 20px;
 }
 
 @media (min-width: 992px) {
-    .swp-layout {
-        flex-direction: row; // desktop → one row
-        justify-content: center;
-        align-items: flex-start;
-        padding-top: 30px;
-    }
+  .swp-layout {
+    flex-direction: row; // desktop → one row
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 30px;
+  }
 }
 
 ion-button {
-    margin-top: 24px;
-    height: 52px;
-    font-size: 20px;
-    letter-spacing: 0.5px;
-    border-radius: 30px;
+  margin-top: 24px;
+  height: 52px;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  border-radius: 30px;
 
-    --background: linear-gradient(135deg, #2563eb, #1e40af);
-    --box-shadow: 0 12px 25px rgba(37, 99, 235, 0.4);
+  --background: linear-gradient(135deg, #2563eb, #1e40af);
+  --box-shadow: 0 12px 25px rgba(37, 99, 235, 0.4);
 }
 
 .chart-container {
-    height: 270px;
-    width: 270px;
-    margin: 30px auto 20px;
-    padding: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #ffffff 40%, #eef2ff 100%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  height: 270px;
+  width: 270px;
+  margin: 30px auto 20px;
+  padding: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 40%, #eef2ff 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 992px) {
-    ion-content {
-        padding: 40px 80px;
-    }
+  ion-content {
+    padding: 40px 80px;
+  }
 
-    ion-card {
-        min-height: 530px;
-    }
+  ion-card {
+    min-height: 580px;
+    max-height: 580px;
+  }
 }
 
 .txt {
-    --background: #cfc8c8;
-    --color: black;
-    --placeholder-color: #aaa;
+  --background: #cfc8c8;
+  --color: black;
+  --placeholder-color: #aaa;
 }
 
 .swp-page {
-    --background: linear-gradient(180deg, #f4f7fb 0%, #ffffff 100%);
+  --background: linear-gradient(180deg, #f4f7fb 0%, #ffffff 100%);
 }
 
 .form-wrapper {
-    max-width: 420px; // key 🔑
-    margin: 0 auto;
+  max-width: 420px; // key 🔑
+  margin: 0 auto;
 }
 
 .amount-words {
-    display: block;
-    margin-top: 4px;
-    font-size: 16px;
-    color: #666;
-    font-style: italic;
+  display: block;
+  margin-top: 4px;
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
 }
 
 .table-wrapper {
-    overflow: auto;
-    max-height: 400px;
-    position: relative;
+  overflow: auto;
+  max-height: 400px;
+  position: relative;
 }
 
 .sip-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 18px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
 }
 
 .sip-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: #f1f4ff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f1f4ff;
 }
 
 .sip-table th {
-    background: #f1f4ff;
-    color: #1976d2;
-    padding: 8px;
-    text-align: right;
+  background: #f1f4ff;
+  color: #1976d2;
+  padding: 8px;
+  text-align: right;
 }
 
 .sip-table td {
-    padding: 8px;
-    text-align: right;
-    border-bottom: 1px solid #eee;
+  padding: 8px;
+  text-align: right;
+  border-bottom: 1px solid #eee;
 }
 
 .sip-table th:first-child,
 .sip-table td:first-child {
-    text-align: center;
+  text-align: center;
 }
 
 .card-table-wrapper {
-    display: flex;
-    justify-content: center;
-    overflow: auto;
+  display: flex;
+  justify-content: center;
+  overflow: auto;
 }
 
 @media (min-width: 992px) {
-    .card-table-wrapper ion-card {
-        width: 100%;
-        min-width: 600px; // 🔑 card size
-        max-width: 600px;
-    }
+  .card-table-wrapper ion-card {
+    width: 100%;
+    min-width: 600px; // 🔑 card size
+    max-width: 600px;
+  }
 }

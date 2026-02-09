@@ -180,7 +180,7 @@ ion-button {
 @media (min-width: 992px) {
     .card-table-wrapper ion-card {
         width: 100%;
-        min-width: 6%; // 🔑 card size
+        min-width: 600px; // 🔑 card size
         max-width: 600px;
     }
 }

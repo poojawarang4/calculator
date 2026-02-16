@@ -14,7 +14,7 @@
       <ion-card>
         <ion-card-content class="form-wrapper">
           <ion-card-header>
-            <ion-card-title style="color:#1976d2; font-weight:600;">Enter SWP Details</ion-card-title>
+            <ion-card-title class="header">Enter SWP Details</ion-card-title>
           </ion-card-header>
 
           <div class="form-group">
@@ -37,12 +37,12 @@
 
           <div class="form-group">
             <ion-label position="floating">Expected Return Rate (p.a %)</ion-label>
-            <ion-input class="txt" type="number" [(ngModel)]="annualReturn"></ion-input>
+            <ion-input type="number" [(ngModel)]="annualReturn"></ion-input>
           </div>
 
           <div class="form-group">
             <ion-label position="floating">Time Period (Years)</ion-label>
-            <ion-input class="txt" type="number" [(ngModel)]="years"></ion-input>
+            <ion-input type="number" [(ngModel)]="years"></ion-input>
           </div>
 
           <ion-button expand="block" color="secondary" shape="round" (click)="calculateSWP()">
@@ -57,7 +57,7 @@
     <div class="card-wrapper">
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Results</ion-card-title>
+          <ion-card-title class="header">Results</ion-card-title>
         </ion-card-header>
 
         <ion-card-content class="form-wrapper">
@@ -77,7 +77,7 @@
     <div class="card-table-wrapper" *ngIf="monthlyTable.length">
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Month-wise SWP Breakdown</ion-card-title>
+          <ion-card-title class="header">Month-wise SWP Breakdown</ion-card-title>
         </ion-card-header>
         <div class="table-wrapper">
           <table class="sip-table">

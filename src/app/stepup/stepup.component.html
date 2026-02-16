@@ -13,7 +13,7 @@
     <div class="card-wrapper">
       <ion-card>
         <ion-card-header>
-          <ion-card-title style="color:#1976d2; font-weight:600;">
+          <ion-card-title class="header">
             Enter Step-Up SIP Details
           </ion-card-title>
         </ion-card-header>
@@ -33,19 +33,19 @@
           <!-- Annual Step-Up -->
           <div class="form-group">
             <ion-label position="floating">Annual Step-Up (%)</ion-label>
-            <ion-input type="number" class="txt" [(ngModel)]="stepUp"></ion-input>
+            <ion-input type="number" [(ngModel)]="stepUp"></ion-input>
           </div>
 
           <!-- Expected Return -->
           <div class="form-group">
             <ion-label position="floating">Expected Return Rate (p.a %)</ion-label>
-            <ion-input type="number" class="txt" [(ngModel)]="rate"></ion-input>
+            <ion-input type="number" [(ngModel)]="rate"></ion-input>
           </div>
 
           <!-- Time Period -->
           <div class="form-group">
             <ion-label position="floating">Time Period (Years)</ion-label>
-            <ion-input type="number" class="txt" [(ngModel)]="time"></ion-input>
+            <ion-input type="number" [(ngModel)]="time"></ion-input>
           </div>
 
           <ion-button expand="block" color="secondary" shape="round" (click)="calculateStepUpSIP()">
@@ -59,7 +59,7 @@
       <!-- Results -->
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Results</ion-card-title>
+          <ion-card-title class="header">Results</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
@@ -77,7 +77,7 @@
     <div class="card-table-wrapper" *ngIf="monthlyData.length">
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Month-wise Step-Up SIP Breakdown</ion-card-title>
+          <ion-card-title class="header">Month-wise Step-Up SIP Breakdown</ion-card-title>
         </ion-card-header>
 
         <ion-card-content class="table-wrapper">

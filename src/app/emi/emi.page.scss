@@ -110,12 +110,6 @@ ion-button {
   }
 }
 
-.txt {
-  --background: #cfc8c8;
-  --color: black;
-  --placeholder-color: #aaa;
-}
-
 .swp-page {
   --background: linear-gradient(180deg, #f4f7fb 0%, #ffffff 100%);
 }
@@ -154,7 +148,7 @@ ion-button {
 
 .sip-table th {
   background: #f1f4ff;
-  color: #1976d2;
+  font-weight: bold;
   padding: 8px;
   text-align: right;
 }
@@ -182,4 +176,9 @@ ion-button {
     min-width: 600px; // 🔑 card size
     max-width: 600px;
   }
+}
+
+.header {
+  color: #1976d2;
+  font-weight: 600;
 }

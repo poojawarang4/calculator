@@ -14,7 +14,7 @@
       <!-- Input Card -->
       <ion-card>
         <ion-card-header>
-          <ion-card-title style="color:#1976d2; font-weight:600;">Enter SIP Details</ion-card-title>
+          <ion-card-title class="header">Enter SIP Details</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
@@ -47,7 +47,7 @@
       <!-- Results -->
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Results</ion-card-title>
+          <ion-card-title class="header">Results</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <p>Invested Amount: <b>₹ {{ investedAmount | number:'1.0-0' }}</b></p>
@@ -64,7 +64,7 @@
     <div class="card-table-wrapper" *ngIf="monthlyData.length">
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Month-wise SIP Breakdown</ion-card-title>
+          <ion-card-title class="header">Month-wise SIP Breakdown</ion-card-title>
         </ion-card-header>
 
         <ion-card-content class="table-wrapper">

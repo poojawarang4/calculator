@@ -30,9 +30,11 @@
     "@dataconnect/generated": "file:src/dataconnect-generated",
     "@ionic/angular": "^8.0.0",
     "chart.js": "^4.5.0",
+    "file-saver": "^2.0.5",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
@@ -47,6 +49,7 @@
     "@angular/language-service": "^20.0.0",
     "@capacitor/cli": "7.4.3",
     "@ionic/angular-toolkit": "^12.0.0",
+    "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",

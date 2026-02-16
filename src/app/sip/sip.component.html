@@ -64,7 +64,12 @@
     <div class="card-table-wrapper" *ngIf="monthlyData.length">
       <ion-card>
         <ion-card-header>
-          <ion-card-title class="header">Month-wise SIP Breakdown</ion-card-title>
+          <div class="emi-header">
+            <ion-card-title class="header">Month-wise SIP Breakdown</ion-card-title>
+            <button class="download-btn" (click)="downloadExcel()">
+              <ion-icon name="download-outline"></ion-icon>
+            </button>
+          </div>
         </ion-card-header>
 
         <ion-card-content class="table-wrapper">
@@ -73,7 +78,7 @@
               <tr>
                 <th>Month</th>
                 <th>Invested (₹)</th>
-                <th>Interest (₹)</th>
+                <th>Gain (₹)</th>
                 <th>Total Value (₹)</th>
               </tr>
             </thead>

@@ -1,5 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
+
 interface EmiMonthlyRow {
   monthYear: string;
   emi: number;
@@ -103,17 +107,17 @@ export class EmiPage implements OnInit, AfterViewInit {
           plugins: {
             legend: { position: 'bottom' },
             tooltip: {
-            callbacks: {
-              label: (context) => {
-                const label = context.label || '';
-                const value = Math.round(context.raw as number);
+              callbacks: {
+                label: (context) => {
+                  const label = context.label || '';
+                  const value = Math.round(context.raw as number);
 
-                // Indian comma format
-                const formattedValue = value.toLocaleString('en-IN');
+                  // Indian comma format
+                  const formattedValue = value.toLocaleString('en-IN');
 
-                return `${label}: ₹ ${formattedValue}`;
+                  return `${label}: ₹ ${formattedValue}`;
+                }
               }
-            }
             }
           }
         }
@@ -204,6 +208,51 @@ export class EmiPage implements OnInit, AfterViewInit {
     event.target.value = this.formattedLoanAmount;
 
     this.updateLoanAmountInWords();
+  }
+  downloadExcel() {
+    if (!this.monthlyData.length) return;
+
+    const excelData = this.monthlyData.map(row => ({
+      Month: row.monthYear,
+      Principal: row.principal,
+      Interest: row.interest,
+      EMI: row.emi,
+      Balance: row.balance
+    }));
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(excelData);
+
+    // 🔥 Apply Indian number format to numeric columns
+    const range = XLSX.utils.decode_range(worksheet['!ref']!);
+
+    for (let row = range.s.r + 1; row <= range.e.r; row++) {
+      for (let col = 1; col <= 4; col++) { // numeric columns
+        const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
+        if (worksheet[cellAddress]) {
+          worksheet[cellAddress].z = '#,##,##0'; // Indian comma format
+        }
+      }
+    }
+
+    const workbook: XLSX.WorkBook = {
+      Sheets: { 'EMI Schedule': worksheet },
+      SheetNames: ['EMI Schedule']
+    };
+
+    const excelBuffer = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array'
+    });
+
+    this.saveExcelFile(excelBuffer, 'EMI_Monthly_Breakdown');
+  }
+
+  saveExcelFile(buffer: any, fileName: string) {
+    const data: Blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'
+    });
+
+    FileSaver.saveAs(data, `${fileName}.xlsx`);
   }
 
 }

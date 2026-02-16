@@ -182,3 +182,31 @@ ion-button {
   color: #1976d2;
   font-weight: 600;
 }
+
+.emi-header {
+  display: flex;
+  justify-content: space-between; // pushes items to extreme ends
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.emi-header h2 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.download-btn {
+  background: linear-gradient(90deg, #2f6df6, #1e4fd1);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-btn ion-icon {
+  font-size: 20px;
+}

@@ -115,7 +115,20 @@ export class SwpComponent implements OnInit, AfterViewInit {
         cutout: '65%',
         responsive: true,
         plugins: {
-          legend: { position: 'bottom' }
+          legend: { position: 'bottom' },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const label = context.label || '';
+                const value = Math.round(context.raw as number);
+
+                // Indian comma format
+                const formattedValue = value.toLocaleString('en-IN');
+
+                return `${label}: ₹ ${formattedValue}`;
+              }
+            }
+          }
         }
       }
     });

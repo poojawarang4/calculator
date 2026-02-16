@@ -54,14 +54,6 @@ ion-card-content b {
   justify-content: center;
 }
 
-@media (min-width: 992px) {
-  .card-wrapper ion-card {
-    width: 100%;
-    min-width: 400px; // 🔑 card size
-    max-width: 400px;
-  }
-}
-
 .swp-layout {
   display: flex;
   flex-direction: column; // mobile default
@@ -129,7 +121,7 @@ ion-button {
 
 .table-wrapper {
   overflow: auto;
-  max-height: 400px;
+  max-height: 450px;
   position: relative;
 }
 
@@ -170,11 +162,15 @@ ion-button {
   overflow: auto;
 }
 
-@media (min-width: 992px) {
+@media (max-width: 768px) {
+  .card-table-wrapper {
+    padding: 0 10px;
+  }
+
   .card-table-wrapper ion-card {
     width: 100%;
-    min-width: 600px; // 🔑 card size
-    max-width: 600px;
+    min-width: unset;
+    max-width: 100%;
   }
 }
 
@@ -209,4 +205,21 @@ ion-button {
 
 .download-btn ion-icon {
   font-size: 20px;
+}
+
+.card-wrapper ion-card {
+  // width: 100%;
+  width: 420px; // fixed max width
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.sip-table {
+  min-width: 700px; // allow horizontal scroll on mobile
+}
+
+.card-table-wrapper ion-card {
+  width: 100%;
 }

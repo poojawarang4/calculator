@@ -93,7 +93,9 @@ ion-button {
 
 @media (min-width: 992px) {
   ion-content {
-    padding: 40px 80px;
+    --padding-start: 80px;
+    --padding-end: 80px;
+    --padding-top: 40px;
   }
 
   ion-card {
@@ -157,9 +159,8 @@ ion-button {
 }
 
 .card-table-wrapper {
-  display: flex;
-  justify-content: center;
-  overflow: auto;
+  width: 100%;
+  overflow-x: auto;
 }
 
 @media (max-width: 768px) {
@@ -207,13 +208,18 @@ ion-button {
   font-size: 20px;
 }
 
-.card-wrapper ion-card {
-  // width: 100%;
-  width: 420px; // fixed max width
+.card-wrapper {
+  width: 100%;
 }
+
+.card-wrapper ion-card {
+  width: 100%;
+}
+
 
 .table-wrapper {
   overflow-x: auto;
+  width: 100%;
 }
 
 .sip-table {
@@ -222,4 +228,9 @@ ion-button {
 
 .card-table-wrapper ion-card {
   width: 100%;
+}
+
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
 }

@@ -45,6 +45,11 @@
             <ion-input type="number" [(ngModel)]="years"></ion-input>
           </div>
 
+          <div class="form-group">
+            <ion-label position="floating">Annual Step-Up (%)</ion-label>
+            <ion-input type="number" [(ngModel)]="stepUpPercent"></ion-input>
+          </div>
+
           <ion-button expand="block" color="secondary" shape="round" (click)="calculateSWP()">
             CALCULATE
           </ion-button>
@@ -107,5 +112,36 @@
         </div>
       </ion-card>
     </div>
+  </div>
+  <div class="card-table-wrapper" *ngIf="yearlySummary.length">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="header">
+          Year-wise Summary
+        </ion-card-title>
+      </ion-card-header>
+
+      <div class="table-wrapper">
+        <table class="sip-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Total Withdrawal (₹)</th>
+              <th>Total Interest (₹)</th>
+              <th>Closing Balance (₹)</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let row of yearlySummary">
+              <td>{{ row.year }}</td>
+              <td>{{ row.totalWithdrawal | number:'1.0-0' }}</td>
+              <td>{{ row.totalInterest | number:'1.0-0' }}</td>
+              <td>{{ row.closingBalance | number:'1.0-0' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ion-card>
   </div>
 </ion-content>

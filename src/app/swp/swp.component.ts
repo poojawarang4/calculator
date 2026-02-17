@@ -8,6 +8,13 @@ interface SwpMonthlyRow {
   withdrawn: number;
   interest: number;
   balance: number;
+  stepUpPercent: number
+}
+interface SwpYearlySummary {
+  year: number;
+  totalWithdrawal: number;
+  totalInterest: number;
+  closingBalance: number;
 }
 
 @Component({
@@ -32,6 +39,10 @@ export class SwpComponent implements OnInit, AfterViewInit {
   monthlyTable: SwpMonthlyRow[] = [];
   formattedInitialInvestmentAmount: string = ''
   formattedMonthlyWithdrawalAmount: string = ''
+  stepUpPercent = 0;
+  inflationRate = 0;
+  yearlySummary: SwpYearlySummary[] = [];
+
 
   ngAfterViewInit() {
     this.initChart();
@@ -45,39 +56,58 @@ export class SwpComponent implements OnInit, AfterViewInit {
   }
 
   calculateSWP() {
-    const investment = +this.initialInvestment;
-    const withdrawal = +this.monthlyWithdrawal;
-    const annualRate = +this.annualReturn / 100;
-    const months = +this.years * 12;
+
+    this.monthlyTable = [];
+    this.yearlySummary = [];
+    this.totalWithdrawal = 0;
+    this.finalValue = 0;
+
+    let yearlyWithdrawal = 0;
+    let yearlyInterest = 0;
+
+    const investment = Number(this.initialInvestment) || 0;
+    const baseWithdrawal = Number(this.monthlyWithdrawal) || 0;
+    const annualRate = Number(this.annualReturn) / 100 || 0;
+    const stepUpRate = Number(this.stepUpPercent) / 100 || 0;
+
+    const months = Number(this.years) * 12;
     const monthlyRate = Math.pow(1 + annualRate, 1 / 12) - 1;
 
     let balance = investment;
     let withdrawn = 0;
 
-    this.monthlyTable = [];
-
-    const startDate = new Date(); // current month
+    const startDate = new Date();
 
     for (let i = 0; i < months; i++) {
-      const openingBalance = balance;
+
+      if (balance <= 0) break;
+
+      const currentYear = Math.floor(i / 12);
+
+      // ✅ Annual Step-Up (always applied, 0% means fixed)
+      const currentWithdrawal =
+        baseWithdrawal * Math.pow(1 + stepUpRate, currentYear);
 
       // Interest
-      const interest = openingBalance * monthlyRate;
+      const interest = balance * monthlyRate;
       balance += interest;
 
       // Withdrawal
       let actualWithdrawal = 0;
-      if (balance >= withdrawal) {
-        balance -= withdrawal;
-        actualWithdrawal = withdrawal;
-        withdrawn += withdrawal;
+
+      if (balance >= currentWithdrawal) {
+        actualWithdrawal = currentWithdrawal;
+        balance -= currentWithdrawal;
       } else {
         actualWithdrawal = balance;
-        withdrawn += balance;
         balance = 0;
       }
 
-      // Month + Year
+      withdrawn += actualWithdrawal;
+      yearlyWithdrawal += actualWithdrawal;
+      yearlyInterest += interest;
+
+      // Month label
       const currentDate = new Date(startDate);
       currentDate.setMonth(startDate.getMonth() + i);
 
@@ -86,14 +116,35 @@ export class SwpComponent implements OnInit, AfterViewInit {
         year: 'numeric'
       });
 
+      // ✅ Correct step-up %
+      const stepUpApplied =
+        baseWithdrawal > 0
+          ? ((currentWithdrawal - baseWithdrawal) / baseWithdrawal) * 100
+          : 0;
+
       this.monthlyTable.push({
         monthYear,
         withdrawn: Math.round(actualWithdrawal),
         interest: Math.round(interest),
-        balance: Math.round(balance)
+        balance: Math.round(balance),
+        stepUpPercent: Math.round(stepUpApplied)
       });
 
-      if (balance <= 0) break;
+      // Push yearly summary
+      const isYearEnd = (i + 1) % 12 === 0;
+      const isLastMonth = i === months - 1;
+
+      if (isYearEnd || balance <= 0 || isLastMonth) {
+        this.yearlySummary.push({
+          year: Math.floor(i / 12) + 1,
+          totalWithdrawal: Math.round(yearlyWithdrawal),
+          totalInterest: Math.round(yearlyInterest),
+          closingBalance: Math.round(balance)
+        });
+
+        yearlyWithdrawal = 0;
+        yearlyInterest = 0;
+      }
     }
 
     this.totalWithdrawal = Math.round(withdrawn);

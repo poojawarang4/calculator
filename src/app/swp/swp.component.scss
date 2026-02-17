@@ -230,3 +230,22 @@ ion-content {
   --padding-start: 16px;
   --padding-end: 16px;
 }
+
+.result-row {
+  display: flex;
+  justify-content: space-between; // left & right
+  align-items: center;
+  font-size: 20px;
+  margin: 10px 0;
+  color: #374151;
+}
+
+.result-row .label {
+  text-align: left;
+}
+
+.result-row .value {
+  font-weight: 600;
+  color: #111827;
+  text-align: right;
+}

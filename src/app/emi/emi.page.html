@@ -52,9 +52,22 @@
         </ion-card-header>
 
         <ion-card-content>
-          <p>Loan EMI:<b> ₹ {{ emi | number:'1.0-0' }}</b></p>
-          <p>Total Interest Payable: <b>₹ {{ totalInterest | number:'1.0-0' }}</b></p>
-          <p>Total Payment (Principal + Interest): <b>₹ {{ totalPayment | number:'1.0-0' }}</b></p>
+
+          <div class="result-row">
+            <span class="label">Loan EMI</span>
+            <span class="value">₹ {{ emi | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Total Interest Payable</span>
+            <span class="value">₹ {{ totalInterest | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Total Payment (Principal + Interest)</span>
+            <span class="value">₹ {{ totalPayment | number:'1.0-0' }}</span>
+          </div>
+
           <div class="chart-container">
             <canvas #emiChart></canvas>
           </div>

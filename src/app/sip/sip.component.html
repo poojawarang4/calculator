@@ -50,9 +50,21 @@
           <ion-card-title class="header">Results</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <p>Invested Amount: <b>₹ {{ investedAmount | number:'1.0-0' }}</b></p>
-          <p>Est. Returns: <b>₹ {{ estReturns | number:'1.0-0' }}</b></p>
-          <p>Total Value: <b>₹ {{ totalValue | number:'1.0-0' }}</b></p>
+
+           <div class="result-row">
+            <span class="label">Invested Amount:</span>
+            <span class="value">₹ {{ investedAmount | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Est. Returns</span>
+            <span class="value">₹ {{ estReturns | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Total Value</span>
+            <span class="value">₹ {{ totalValue | number:'1.0-0' }}</span>
+          </div>
 
           <div class="chart-container">
             <canvas #sipChart></canvas>

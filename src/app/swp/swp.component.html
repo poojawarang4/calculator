@@ -65,10 +65,21 @@
           <ion-card-title class="header">Results</ion-card-title>
         </ion-card-header>
 
-        <ion-card-content class="form-wrapper">
-          <p>Invested Amount: <b>₹ {{ initialInvestment | number:'1.0-0' }}</b></p>
-          <p>Total Withdrawal: <b>₹ {{ totalWithdrawal | number:'1.0-0' }}</b></p>
-          <p>Final Value: <b>₹ {{ finalValue | number:'1.0-0' }}</b></p>
+        <ion-card-content>
+          <div class="result-row">
+            <span class="label">Invested Amount:</span>
+            <span class="value">₹ {{ initialInvestment | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Total Withdrawal</span>
+            <span class="value">₹ {{ totalWithdrawal | number:'1.0-0' }}</span>
+          </div>
+
+          <div class="result-row">
+            <span class="label">Final Value</span>
+            <span class="value">₹ {{ finalValue | number:'1.0-0' }}</span>
+          </div>
 
           <!-- RIGHT -->
           <div class="chart-container">

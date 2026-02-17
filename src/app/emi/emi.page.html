@@ -20,7 +20,7 @@
         <ion-card-content class="form-wrapper">
           <div class="form-group">
             <ion-label position="floating">Loan Amount</ion-label>
-            <ion-input type="text" inputmode="numeric" [value]="formattedLoanAmount"
+            <ion-input #loanInput type="text" inputmode="numeric" [value]="formattedLoanAmount"
               (ionInput)="onLoanAmountInput($event)"></ion-input>
             <small class="amount-words" *ngIf="loanAmountInWords">
               {{ loanAmountInWords }}

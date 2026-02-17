@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Chart } from 'chart.js';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { IonInput } from '@ionic/angular';
 interface SwpMonthlyRow {
   monthYear: string;
   withdrawn: number;
@@ -16,6 +17,8 @@ interface SwpMonthlyRow {
   standalone: false,
 })
 export class SwpComponent implements OnInit, AfterViewInit {
+  @ViewChild('lnvestInput', { static: false }) lnvestInput!: IonInput;
+  @ViewChild('withdrawalInput', { static: false }) withdrawalInput!: IonInput;
   @ViewChild('swpChart') swpChart!: ElementRef;
   initialInvestment = 5000000;
   monthlyWithdrawal = 10000;
@@ -205,46 +208,66 @@ export class SwpComponent implements OnInit, AfterViewInit {
     return str.trim();
   }
 
-  onInvestmentAmountInput(event: any) {
-    let value = event.target.value ?? '';
+  async onInvestmentAmountInput(event: any) {
+    const inputEl = await this.lnvestInput.getInputElement();
 
-    // remove everything except digits
-    value = value.replace(/[^\d]/g, '');
+    const start = inputEl.selectionStart || 0;
 
-    // update numeric value
-    this.initialInvestment = value ? Number(value) : 0;
+    let rawValue = inputEl.value;
+
+    // Remove non-digits
+    const numericValue = rawValue.replace(/[^\d]/g, '');
+    this.initialInvestment = numericValue ? Number(numericValue) : 0;
 
     // format with commas
-    this.formattedInitialInvestmentAmount = this.initialInvestment
+    const formatted = this.initialInvestment
       ? this.initialInvestment.toLocaleString('en-IN')
       : '';
 
     // force value back into input (important for Ionic)
-    event.target.value = this.formattedInitialInvestmentAmount;
+    this.formattedInitialInvestmentAmount = formatted;
+    // Set value properly
+    inputEl.value = formatted;
+
+    // Restore cursor position correctly
+    const diff = formatted.length - rawValue.length;
+    const newPos = start + diff;
+
+    inputEl.setSelectionRange(newPos, newPos);
 
     this.updateInvestmentAmountInWords();
   }
 
-  onMonthlyWithdrawalAmountInput(event: any) {
-    let value = event.target.value ?? '';
+  async onMonthlyWithdrawalAmountInput(event: any) {
+    const inputEl = await this.withdrawalInput.getInputElement();
 
-    // remove everything except digits
-    value = value.replace(/[^\d]/g, '');
+    const start = inputEl.selectionStart || 0;
 
-    // update numeric value
-    this.monthlyWithdrawal = value ? Number(value) : 0;
+    let rawValue = inputEl.value;
+
+    // Remove non-digits
+    const numericValue = rawValue.replace(/[^\d]/g, '');
+    this.monthlyWithdrawal = numericValue ? Number(numericValue) : 0;
 
     // format with commas
-    this.formattedMonthlyWithdrawalAmount = this.monthlyWithdrawal
+    const formatted = this.monthlyWithdrawal
       ? this.monthlyWithdrawal.toLocaleString('en-IN')
       : '';
 
     // force value back into input (important for Ionic)
-    event.target.value = this.formattedMonthlyWithdrawalAmount;
+    this.formattedMonthlyWithdrawalAmount = formatted;
+    // Set value properly
+    inputEl.value = formatted;
+
+    // Restore cursor position correctly
+    const diff = formatted.length - rawValue.length;
+    const newPos = start + diff;
+
+    inputEl.setSelectionRange(newPos, newPos);
 
     this.updateInvestmentAmountInWords();
   }
-  
+
   downloadExcel() {
     if (!this.monthlyTable.length) return;
 

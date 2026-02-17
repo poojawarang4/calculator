@@ -19,7 +19,7 @@
         <ion-card-content>
           <div class="form-group">
             <ion-label position="floating">Initial Investment</ion-label>
-            <ion-input type="text" inputmode="numeric" [value]="formattedInitialInvestmentAmount"
+            <ion-input #lnvestInput type="text" inputmode="numeric" [value]="formattedInitialInvestmentAmount"
               (ionInput)="onInvestmentAmountInput($event)"></ion-input>
             <small class="amount-words" *ngIf="investmentAmountInWords">
               {{ investmentAmountInWords }}
@@ -28,7 +28,7 @@
 
           <div class="form-group">
             <ion-label position="floating">Withdrawal Per Month</ion-label>
-            <ion-input type="text" inputmode="numeric" [value]="formattedMonthlyWithdrawalAmount"
+            <ion-input #withdrawalInput type="text" inputmode="numeric" [value]="formattedMonthlyWithdrawalAmount"
               (ionInput)="onMonthlyWithdrawalAmountInput($event)"></ion-input>
             <small class="amount-words" *ngIf="monthlyWithdrawalAmountInWords">
               {{ monthlyWithdrawalAmountInWords }}

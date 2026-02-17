@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Chart } from 'chart.js/auto';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { IonInput } from '@ionic/angular';
 
 
 interface EmiMonthlyRow {
@@ -19,6 +20,7 @@ interface EmiMonthlyRow {
   standalone: false,
 })
 export class EmiPage implements OnInit, AfterViewInit {
+  @ViewChild(IonInput) loanInput!: IonInput;
   loanAmount: number = 500000;
   interestRate: number = 10;
   years: number = 10;
@@ -146,6 +148,7 @@ export class EmiPage implements OnInit, AfterViewInit {
     this.loanAmountInWords =
       this.numberToWordsIndian(this.loanAmount) + ' Rupees';
   }
+
   numberToWordsIndian(num: number): string {
     const a = [
       '', 'One', 'Two', 'Three', 'Four', 'Five', 'Six',
@@ -190,25 +193,38 @@ export class EmiPage implements OnInit, AfterViewInit {
 
     return str.trim();
   }
-  onLoanAmountInput(event: any) {
-    let value = event.target.value ?? '';
 
-    // remove everything except digits
-    value = value.replace(/[^\d]/g, '');
+  async onLoanAmountInput(event: any) {
+    const inputEl = await this.loanInput.getInputElement();
 
-    // update numeric value
-    this.loanAmount = value ? Number(value) : 0;
+    const start = inputEl.selectionStart || 0;
 
-    // format with commas
-    this.formattedLoanAmount = this.loanAmount
+    let rawValue = inputEl.value;
+
+    // Remove non-digits
+    const numericValue = rawValue.replace(/[^\d]/g, '');
+
+    this.loanAmount = numericValue ? Number(numericValue) : 0;
+
+    const formatted = this.loanAmount
       ? this.loanAmount.toLocaleString('en-IN')
       : '';
 
-    // force value back into input (important for Ionic)
-    event.target.value = this.formattedLoanAmount;
+    this.formattedLoanAmount = formatted;
+
+    // Set value properly
+    await this.loanInput.setFocus();
+    inputEl.value = formatted;
+
+    // Restore cursor position correctly
+    const diff = formatted.length - rawValue.length;
+    const newPos = start + diff;
+
+    inputEl.setSelectionRange(newPos, newPos);
 
     this.updateLoanAmountInWords();
   }
+
   downloadExcel() {
     if (!this.monthlyData.length) return;
 

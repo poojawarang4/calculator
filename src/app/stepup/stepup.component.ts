@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Chart } from 'chart.js';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { IonInput } from '@ionic/angular';
 interface StepUpMonthlyRow {
   monthYear: string;
   invested: number;
@@ -16,6 +17,7 @@ interface StepUpMonthlyRow {
   standalone: false,
 })
 export class StepupComponent implements OnInit, AfterViewInit {
+  @ViewChild(IonInput) lnvestInput!: IonInput;
   @ViewChild('stepSipChart') stepSipChart!: ElementRef<HTMLCanvasElement>;
   investment = 5000;
   rate = 12;
@@ -180,26 +182,37 @@ export class StepupComponent implements OnInit, AfterViewInit {
     return str.trim();
   }
 
-  onInvestmentAmountInput(event: any) {
-    let value = event.target.value ?? '';
+  async onInvestmentAmountInput(event: any) {
+    const inputEl = await this.lnvestInput.getInputElement();
 
-    // remove everything except digits
-    value = value.replace(/[^\d]/g, '');
+    const start = inputEl.selectionStart || 0;
 
-    // update numeric value
-    this.investment = value ? Number(value) : 0;
+    let rawValue = inputEl.value;
+
+    // Remove non-digits
+    const numericValue = rawValue.replace(/[^\d]/g, '');
+    this.investment = numericValue ? Number(numericValue) : 0;
 
     // format with commas
-    this.formattedInvestmentAmount = this.investment
+    const formatted = this.investment
       ? this.investment.toLocaleString('en-IN')
       : '';
 
     // force value back into input (important for Ionic)
-    event.target.value = this.formattedInvestmentAmount;
+    this.formattedInvestmentAmount = formatted;
+    // Set value properly
+    await this.lnvestInput.setFocus();
+    inputEl.value = formatted;
+
+    // Restore cursor position correctly
+    const diff = formatted.length - rawValue.length;
+    const newPos = start + diff;
+
+    inputEl.setSelectionRange(newPos, newPos);
 
     this.updateInvestmentAmountInWords();
   }
-  
+
   downloadExcel() {
     if (!this.monthlyData.length) return;
 

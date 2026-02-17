@@ -23,7 +23,7 @@
           <!-- Monthly SIP -->
           <div class="form-group">
             <ion-label position="floating">Monthly Investment</ion-label>
-            <ion-input type="text" inputmode="numeric" [value]="formattedInvestmentAmount"
+            <ion-input #lnvestInput type="text" inputmode="numeric" [value]="formattedInvestmentAmount"
               (ionInput)="onInvestmentAmountInput($event)"></ion-input>
             <small class="amount-words" *ngIf="investmentAmountInWords">
               {{ investmentAmountInWords }}

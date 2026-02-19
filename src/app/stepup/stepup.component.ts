@@ -9,6 +9,12 @@ interface StepUpMonthlyRow {
   interest: number;
   totalValue: number;
 }
+interface StepUpYearlyRow {
+  year: number;
+  invested: number;
+  interest: number;
+  totalValue: number;
+}
 
 @Component({
   selector: 'app-stepup',
@@ -29,7 +35,8 @@ export class StepupComponent implements OnInit, AfterViewInit {
   private chart: Chart | null = null;
   investmentAmountInWords = ''
   monthlyData: StepUpMonthlyRow[] = [];
-  formattedInvestmentAmount: string = ''
+  formattedInvestmentAmount: string = '';
+  yearlyData: StepUpYearlyRow[] = [];
 
   ngAfterViewInit() {
     this.initChart();
@@ -51,6 +58,7 @@ export class StepupComponent implements OnInit, AfterViewInit {
     let futureValue = 0;
 
     this.monthlyData = [];
+    this.yearlyData = [];
     const startDate = new Date();
 
     for (let m = 1; m <= months; m++) {
@@ -77,6 +85,17 @@ export class StepupComponent implements OnInit, AfterViewInit {
         interest: Math.round(futureValue - invested),
         totalValue: Math.round(futureValue)
       });
+
+      if (m % 12 === 0) {
+        const yearNumber = m / 12;
+
+        this.yearlyData.push({
+          year: yearNumber,
+          invested: Math.round(invested),
+          interest: Math.round(futureValue - invested),
+          totalValue: Math.round(futureValue)
+        });
+      }
     }
 
     this.investedAmount = Math.round(invested);

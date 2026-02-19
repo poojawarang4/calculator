@@ -110,4 +110,39 @@
       </ion-card>
     </div>
   </div>
+
+  <div class="card-table-wrapper" *ngIf="yearlyData.length">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="header">
+          Year-wise EMI Breakdown
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="table-wrapper">
+        <table class="sip-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Total EMI (₹)</th>
+              <th>Principal Paid (₹)</th>
+              <th>Interest Paid (₹)</th>
+              <th>Balance (₹)</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let row of yearlyData">
+              <td>{{ row.year }}</td>
+              <td>{{ row.totalEmi | number:'1.0-0' }}</td>
+              <td>{{ row.totalPrincipal | number:'1.0-0' }}</td>
+              <td>{{ row.totalInterest | number:'1.0-0' }}</td>
+              <td>{{ row.balance | number:'1.0-0' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
 </ion-content>

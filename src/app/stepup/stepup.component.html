@@ -120,4 +120,37 @@
       </ion-card>
     </div>
   </div>
+
+  <div class="card-table-wrapper" *ngIf="yearlyData.length">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title class="header">
+          Year-wise Step-Up SIP Breakdown
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content class="table-wrapper">
+        <table class="sip-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Invested (₹)</th>
+              <th>Interest (₹)</th>
+              <th>Total Value (₹)</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let row of yearlyData">
+              <td>{{ row.year }}</td>
+              <td>{{ row.invested | number:'1.0-0' }}</td>
+              <td>{{ row.interest | number:'1.0-0' }}</td>
+              <td>{{ row.totalValue | number:'1.0-0' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
 </ion-content>

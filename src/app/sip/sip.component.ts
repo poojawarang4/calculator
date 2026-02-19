@@ -9,6 +9,13 @@ interface SipMonthlyRow {
   totalValue: number;
   interest: number;
 }
+interface SipYearlyRow {
+  year: number;
+  invested: number;
+  interest: number;
+  totalValue: number;
+}
+
 @Component({
   selector: 'app-sip',
   templateUrl: './sip.component.html',
@@ -30,6 +37,8 @@ export class SipComponent implements OnInit, AfterViewInit {
   investmentAmountInWords = '';
   monthlyData: SipMonthlyRow[] = [];
   formattedInvestmentAmount: string = ''
+  yearlyData: SipYearlyRow[] = [];
+
 
   ngAfterViewInit() {
     this.initChart();
@@ -50,6 +59,7 @@ export class SipComponent implements OnInit, AfterViewInit {
 
     let total = 0;
     this.monthlyData = [];
+    this.yearlyData = [];
 
     const startDate = new Date(); // current date
 
@@ -73,9 +83,19 @@ export class SipComponent implements OnInit, AfterViewInit {
         interest,
         totalValue: total
       });
+      if ((i + 1) % 12 === 0) {
+        const yearNumber = (i + 1) / 12;
+
+        this.yearlyData.push({
+          year: yearNumber,
+          invested: Math.round(invested),
+          interest: Math.round(interest),
+          totalValue: Math.round(total)
+        });
+      }
     }
 
-    this.totalValue = total;
+    this.totalValue = Math.round(total);
     this.investedAmount = this.investment * totalMonths;
     this.estReturns = this.totalValue - this.investedAmount;
 

@@ -12,6 +12,13 @@ interface EmiMonthlyRow {
   interest: number;
   balance: number;
 }
+interface EmiYearlyRow {
+  year: number;
+  totalPrincipal: number;
+  totalInterest: number;
+  totalEmi: number;
+  balance: number;
+}
 
 @Component({
   selector: 'app-emi',
@@ -32,6 +39,7 @@ export class EmiPage implements OnInit, AfterViewInit {
   loanAmountInWords = '';
   monthlyData: EmiMonthlyRow[] = [];
   formattedLoanAmount: string = '';
+  yearlyData: EmiYearlyRow[] = [];
 
   constructor() { }
 
@@ -60,7 +68,13 @@ export class EmiPage implements OnInit, AfterViewInit {
 
       // 🔹 Build amortization table
       this.monthlyData = [];
+      this.yearlyData = [];
+
       let balance = P;
+      let yearlyPrincipal = 0;
+      let yearlyInterest = 0;
+      let yearlyEmi = 0;
+
       const startDate = new Date();
 
       for (let i = 0; i < n; i++) {
@@ -83,6 +97,25 @@ export class EmiPage implements OnInit, AfterViewInit {
           interest: Math.round(interest),
           balance: Math.max(0, Math.round(balance))
         });
+
+        yearlyPrincipal += principal;
+        yearlyInterest += interest;
+        yearlyEmi += this.emi;
+        if ((i + 1) % 12 === 0) {
+
+          const yearNumber = (i + 1) / 12;
+
+          this.yearlyData.push({
+            year: yearNumber,
+            totalPrincipal: Math.round(yearlyPrincipal),
+            totalInterest: Math.round(yearlyInterest),
+            totalEmi: Math.round(yearlyEmi),
+            balance: Math.max(0, Math.round(balance))
+          });
+          yearlyPrincipal = 0;
+          yearlyInterest = 0;
+          yearlyEmi = 0;
+        }
       }
 
       setTimeout(() => this.renderChart(P, this.totalInterest!), 0);

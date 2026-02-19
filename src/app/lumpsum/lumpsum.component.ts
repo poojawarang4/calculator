@@ -9,6 +9,12 @@ interface LumpsumMonthlyRow {
   interest: number;
   totalValue: number;
 }
+interface LumpsumYearlyRow {
+  year: number;
+  invested: number;
+  interest: number;
+  totalValue: number;
+}
 
 @Component({
   selector: 'app-lumpsum',
@@ -29,7 +35,8 @@ export class LumpsumComponent implements OnInit {
   private chart: Chart | null = null;
   investmentAmountInWords = '';
   monthlyData: LumpsumMonthlyRow[] = [];
-  formattedInvestmentAmount: string = ''
+  formattedInvestmentAmount: string = '';
+  yearlyData: LumpsumYearlyRow[] = [];
 
   ngAfterViewInit() {
     this.initChart();
@@ -49,6 +56,7 @@ export class LumpsumComponent implements OnInit {
     const totalMonths = this.time * 12;
 
     this.monthlyData = [];
+    this.yearlyData = [];
     let total = this.investment;
 
     const startDate = new Date();
@@ -72,9 +80,20 @@ export class LumpsumComponent implements OnInit {
         interest,
         totalValue: total
       });
+
+      if ((i + 1) % 12 === 0) {
+        const yearNumber = (i + 1) / 12;
+
+        this.yearlyData.push({
+          year: yearNumber,
+          invested: Math.round(this.investment),
+          interest: Math.round(interest),
+          totalValue: Math.round(total)
+        });
+      }
     }
 
-    this.totalValue = total;
+    this.totalValue = Math.round(total);
     this.investedAmount = this.investment;
     this.estReturns = this.totalValue - this.investedAmount;
 
